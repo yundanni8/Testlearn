@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+    //console.log(detail_class.length)
+    if (level == 3) {
+        for (var i = 0; i < detail_class.length; i++){
+            detail_class[i].innerHTML="收起"
+        }
+    }
+    else{
+            for (var i = 0; i < detail_class.length; i++){
+            detail_class[i].innerHTML="详细"
+        }
+    }
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&');
+    s = s.replace(/</g,'<');
+    s = s.replace(/>/g,'>');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">自动化测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> danny</p>
+<p class='attribute'><strong>开始时间 : </strong> 2020-11-25 10:41:22</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:01.155894</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 2，通过 2，通过率= 100.00%</p>
+
+<p class='description'>用例执行情况：</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 100.00% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 2 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 2 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_article.Testlive</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',1)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_businessSchool_tabLists</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in" align="left">
+    <pre>
+    
+pt1_1: 本次运行的这个接口的params是：FnlFkRSwfr2xZm93tZheOK5UctFKkhWtKF62TUwSn+GGtcFKzjtN0t7ehIzs+q65x1PZ3HMwM8aFsX4cXGqUHr3RCgfYRZt3tqaa1WW6XGX2yZrk8A59apTi24MKLSGoLHDV+WU1QBpxXcjOB2xukfYHaz+sojfsZOYzKV6SENo=
+本次运行的这个接口的sign是：AD1E741C122F296EBC5606DEF11D3D4A
+本次运行的这个接口的auth_session是：f0def68576ad697c33c06c6e1739fc21
+本次运行的这个接口的timestamp是：1606272082
+{
+    "code":200,
+    "data":{
+        "lists":[
+            {
+                "cate_id":"0",
+                "child_cate":[],
+                "title":"\u63a8\u8350",
+                "type":"1"
+            },
+            {
+                "cate_id":"288",
+                "child_cate":[
+                    {
+                        "cate_id":"289",
+                        "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e8c\u7ea7\u5206\u7c7b1",
+                        "child_cate":[
+                            {
+                                "cate_id":"292",
+                                "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e09\u7ea7\u5206\u7c7b\u54c8\u54c8\u54c8\u54c8\u597d\u597d\u597d1",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"293",
+                                "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e09\u7ea7\u5206\u7c7b2",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"294",
+                                "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e09\u7ea7\u5206\u7c7b2",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"342",
+                                "cate_name":"\u6d4b\u8bd5\u540d\u79f0\u8fc7\u957f\u54c8\u5feb\u4ef6\u5355\u53f7\u53d1\u5361\u673a\u7231\u7684\u8272\u653e",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"290",
+                        "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e8c\u7ea7\u5206\u7c7b2",
+                        "child_cate":[
+                            {
+                                "cate_id":"295",
+                                "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e09\u7ea7\u5206\u7c7b4",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"296",
+                                "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e09\u7ea7\u5206\u7c7b5",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"291",
+                        "cate_name":"\u6ca1\u6709\u5934\u56fe\u7684\u4e8c\u7ea7\u5206\u7c7b3",
+                        "child_cate":[],
+                        "level":"3"
+                    }
+                ],
+                "title":"\u6ca1\u6709\u5934\u56fe\u7684\u5206\u7c7b",
+                "type":"2"
+            },
+            {
+                "cate_id":"250",
+                "child_cate":[
+                    {
+                        "cate_id":"275",
+                        "cate_name":"\u6c38\u4e0d\u5931\u8054\u7684\u7231",
+                        "child_cate":[
+                            {
+                                "cate_id":"278",
+                                "cate_name":"\u50cf\u590f\u5929\u7684\u53ef\u4e50",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"279",
+                                "cate_name":"\u50cf\u51ac\u5929\u7684coco",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"280",
+                                "cate_name":"\u662f\u4f60\u8ba9\u6211\u770b\u89c1",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"281",
+                                "cate_name":"\u5e72\u67af\u6c99\u6f20\u5f00\u51fa\u82b1\u4e00\u6735",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"282",
+                                "cate_name":"\u662f\u4f60\u8ba9\u6211\u7684\u4e16\u754c",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"283",
+                                "cate_name":"\u7231\u8981\u7cbe\u5fc3\u6765\u96d5\u523b",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"284",
+                                "cate_name":"\u662f\u4f60\u8ba9\u6211\u60f3\u8981\u6bcf\u5929\u4e3a\u4f60\u5199\u4e00\u9996\u60c5\u6b4c",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"285",
+                                "cate_name":"\u662f\u4f60\u8ba9\u6211\u7684\u751f\u6d3b\u4ece\u6b64\u90fd\u53ea\u8981\u4f60\u914d\u5408",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"287",
+                                "cate_name":"\u6709\u4e00\u79cd\u80dc\u5229",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"301",
+                                "cate_name":"\u5d07\u62dc",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"302",
+                                "cate_name":"\u4f60\u4ee5\u4e3a\u7231",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"303",
+                                "cate_name":"\u5c31\u662f\u88ab\u7231",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"304",
+                                "cate_name":"\u6211\u6d3b\u4e86",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"305",
+                                "cate_name":"\u6211\u7231\u4e86",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"306",
+                                "cate_name":"\u80af\u80fd\u7684\u53ef\u4ee5\u7684",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"307",
+                                "cate_name":"\u5e78\u798f\u4ed6\u4e0d\u5bb9\u6613",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"308",
+                                "cate_name":"\u6211\u8fd8\u4ee5\u4e3a\u6211\u4eec\u80fd\u4e0d\u540c\u4e8e\u522b\u4eba",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"309",
+                                "cate_name":"\u4f60\u7684\u59ff\u6001",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"310",
+                                "cate_name":"\u6211\u5b58\u5728\u5728\u4f60\u7684\u5b58\u5728",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"311",
+                                "cate_name":"\u4f60\u4ee5\u4e3a\u7231\u5c31\u662f\u88ab\u7231",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"312",
+                                "cate_name":"\u554a\u554a\u554a\u554a\u554a\u554a\u554a",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"313",
+                                "cate_name":"\u6211\u90fd\u4e0d\u7ba1\u4e86",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"276",
+                        "cate_name":"\u6708\u4eae\u60f9\u7684\u7978",
+                        "child_cate":[],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"277",
+                        "cate_name":"\u6709\u70b9\u751c",
+                        "child_cate":[],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"286",
+                        "cate_name":"\u7f18\u5206\u4e00\u9053\u6865",
+                        "child_cate":[],
+                        "level":"3"
+                    }
+                ],
+                "title":"\u5b66\u4e0d\u4f1a",
+                "type":"2"
+            },
+            {
+                "cate_id":"246",
+                "child_cate":[
+                    {
+                        "cate_id":"247",
+                        "cate_name":"\u4ea4\u6362\u4f59\u751f",
+                        "child_cate":[
+                            {
+                                "cate_id":"251",
+                                "cate_name":"\u5b64\u5355\u542c\u96e8\u7684\u732b\u5f80\u65f6\u95f4\u88c2\u7f1d\u91cc\u770b\u5230\u4e86\u6211\u96f7\u7535\u4ea4\u52a0\u4e4b\u5916\u7684\u53e6\u4e00\u4e9b\u6211",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"252",
+                                "cate_name":"\u5982\u679c\u6211\u4eec\u51e0\u7ecf\u8f6c\u6298 \u7ed3\u5c40\u4e00\u6837\u4e0d\u52a8\u4e5f\u624d\u7b97\u65e0\u6127\u8fd9\u5206\u5408\u5b9a\u4f4d\u5fc3\u6d77\u7684\u951a\u8ba9\u65f6\u95f4\u505c\u987f\u7684\u50cf\u6162\u52a8\u4f5c\u4f60\u8bf4\u547d\u8fd0\u5f88\u574f\u5427\u5e78\u597d\u6709\u6211",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"253",
+                                "cate_name":"\u4ea4\u6362\u4f59\u751f",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"248",
+                        "cate_name":"\u6700\u521d\u7684\u5f00\u59cb",
+                        "child_cate":[
+                            {
+                                "cate_id":"254",
+                                "cate_name":"\u79bb\u5f00\u7684\u90a3\u4e00\u4e9b",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"249",
+                        "cate_name":"\u79bb\u5f00\u7684\u90a3\u4e00\u4e9b",
+                        "child_cate":[
+                            {
+                                "cate_id":"259",
+                                "cate_name":"\u9177\u9177\u7684",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"260",
+                                "cate_name":"\u5e05\u5e05\u7684",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"274",
+                        "cate_name":"\u6682\u65f6\u7684\u8bb0\u53f7",
+                        "child_cate":[],
+                        "level":"3"
+                    }
+                ],
+                "title":"\u5e78\u5b58\u8005",
+                "type":"2"
+            },
+            {
+                "cate_id":"28",
+                "child_cate":[],
+                "title":"\u4ea7\u54c1\u767e\u79d1",
+                "type":"2"
+            },
+            {
+                "cate_id":"12",
+                "child_cate":[
+                    {
+                        "cate_id":"199",
+                        "cate_name":"\u8d4b\u80fd\u7cfb\u5217\u4e8c\u7ea7\u5206\u7c7b",
+                        "child_cate":[
+                            {
+                                "cate_id":"200",
+                                "cate_name":"\u8d4b\u80fd\u7cfb\u5217\u4e09\u7ea7\u5206\u7c7b001",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"201",
+                                "cate_name":"\u8d4b\u80fd\u7cfb\u5217\u4e09\u7ea7\u5206\u7c7b002",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"202",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b003",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"203",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b004",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"204",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b005",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"205",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b006",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"206",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b002",
+                        "child_cate":[],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"207",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b003",
+                        "child_cate":[],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"208",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b004",
+                        "child_cate":[],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"209",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b005",
+                        "child_cate":[],
+                        "level":"3"
+                    }
+                ],
+                "title":"\u8d4b\u80fd\u7cfb\u5217",
+                "type":"2"
+            },
+            {
+                "cate_id":"11",
+                "child_cate":[
+                    {
+                        "cate_id":"197",
+                        "cate_name":"\u6210\u957f\u9636\u68af\u4e8c\u7ea7\u5206\u7c7b",
+                        "child_cate":[
+                            {
+                                "cate_id":"198",
+                                "cate_name":"\u6210\u957f\u9636\u68af\u4e09\u7ea7\u5206\u7c7b",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"210",
+                        "cate_name":"\u6210\u957f\u9636\u68af\u4e8c\u7ea7\u5206\u7c7b002",
+                        "child_cate":[
+                            {
+                                "cate_id":"229",
+                                "cate_name":"\u6210\u957f\u9636\u68af\u4e09\u7ea7\u5206\u7c7b002-001",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"211",
+                        "cate_name":"\u6210\u957f\u9636\u68af\u4e8c\u7ea7\u5206\u7c7b003",
+                        "child_cate":[
+                            {
+                                "cate_id":"230",
+                                "cate_name":"\u6210\u957f\u9636\u68af\u4e09\u7ea7\u5206\u7c7b003-001",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"212",
+                        "cate_name":"\u6210\u957f\u9636\u68af\u4e8c\u7ea7\u5206\u7c7b004",
+                        "child_cate":[
+                            {
+                                "cate_id":"231",
+                                "cate_name":"\u6210\u957f\u9636\u68af\u4e09\u7ea7\u5206\u7c7b004-001",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"213",
+                        "cate_name":"\u6210\u957f\u9636\u68af\u4e8c\u7ea7\u5206\u7c7b005",
+                        "child_cate":[
+                            {
+                                "cate_id":"232",
+                                "cate_name":"\u6210\u957f\u9636\u68af\u4e09\u7ea7\u5206\u7c7b005-001",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"214",
+                        "cate_name":"\u6210\u957f\u9636\u68af\u4e8c\u7ea7\u5206\u7c7b006",
+                        "child_cate":[
+                            {
+                                "cate_id":"233",
+                                "cate_name":"\u6210\u957f\u9636\u68af\u4e09\u7ea7\u5206\u7c7b005-001",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    }
+                ],
+                "title":"\u6210\u957f\u9636\u68af",
+                "type":"2"
+            },
+            {
+                "cate_id":"10",
+                "child_cate":[
+                    {
+                        "cate_id":"170",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b",
+                        "child_cate":[
+                            {
+                                "cate_id":"171",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"176",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b002",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"177",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b003",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"178",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b004",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"179",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b005",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"180",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b006",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"172",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b002",
+                        "child_cate":[
+                            {
+                                "cate_id":"215",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b002-001",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"216",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b002-002",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"217",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b002-003",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"173",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b003",
+                        "child_cate":[
+                            {
+                                "cate_id":"218",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b003-001",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"219",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b003-002",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"220",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b003-003",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"221",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b003-004",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"174",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b004",
+                        "child_cate":[
+                            {
+                                "cate_id":"222",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b004-001",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"223",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b004-002",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"224",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b004-003",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"225",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b004-004",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    },
+                    {
+                        "cate_id":"175",
+                        "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e8c\u7ea7\u5206\u7c7b005",
+                        "child_cate":[
+                            {
+                                "cate_id":"226",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b005-001",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"227",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b005-002",
+                                "level":"4"
+                            },
+                            {
+                                "cate_id":"228",
+                                "cate_name":"\u65b0\u4eba\u5165\u95e8\u4e09\u7ea7\u5206\u7c7b005-003",
+                                "level":"4"
+                            }
+                        ],
+                        "level":"3"
+                    }
+                ],
+                "title":"\u65b0\u4eba\u5165\u95e8",
+                "type":"2"
+            }
+        ]
+    },
+    "msg":"success"
+}
+********************************************************************************
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_live.Testlive</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',1)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_live</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: 本次运行的这个接口的params是：7bR9Jl9XtT1NTFDZlH2FFLcizuCpl/PA4EUna4pK6uRYVVmF2LC08tENfPv2TIVP9s4Ai5NTWGid9xB4VFRxk0Bpksu0UgtaLaDq/UIMp0CaAn+p0TGtDvLQtKcHNUSbeHCA38txF9QyQrdDI37EQ4vhwf2WkoSjsG5yoUAk3H0=
+本次运行的这个接口的sign是：BF55E19743954A8E8EF8526DB10EB2B2
+本次运行的这个接口的auth_session是：69226f97420516faa2da058fd5467287
+本次运行的这个接口的timestamp是：1606272082
+********************************************************************************
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td>通过率：100.00%</td>
+</tr>
+</table>
+
+<div id='ending'> </div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
